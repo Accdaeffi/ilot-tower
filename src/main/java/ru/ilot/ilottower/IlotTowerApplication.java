@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class IlottowerApplication {
+public class IlotTowerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IlottowerApplication.class, args);
+		SpringApplication.run(IlotTowerApplication.class, args);
 	}
 
 }
