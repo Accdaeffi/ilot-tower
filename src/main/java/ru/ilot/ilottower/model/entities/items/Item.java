@@ -1,6 +1,9 @@
 package ru.ilot.ilottower.model.entities.items;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -15,13 +18,24 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "item")
+@Table(name = "Items")
 public class Item {
     @Id
+    @Column(name = "Id")
     public int id;
+
+    @Column(name = "Name")
     public String name;
+
+    @Column(name = "Slot")
+    @Enumerated(EnumType.ORDINAL)
     public SlotType slotType;
+
+    @Column(name = "Rare")
+    @Enumerated(EnumType.ORDINAL)
     public RareType rareType;
+
+    @Column(name = "Weight")
     public double weight;
     //public virtual ItemProperties Properties;
 

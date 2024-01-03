@@ -1,8 +1,10 @@
 package ru.ilot.ilottower.model.entities.money;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -16,24 +18,39 @@ import java.util.Currency;
 
 @Data
 @Entity
-@Table(name = "wallet")
+@Table(name = "Wallets")
 public class Wallet {
 
     @Id
+    @Column(name = "Id")
     public int id;
-    public int currencyId;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CurrencyId", nullable = false)
     public Currency currency;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "wallet")
+    @JoinColumn(name = "UserId")
     public Player player;
 
+    @Column(name = "CustomerId")
     public int customerId;
+
+    @Column(name = "Date")
     public Timestamp date;
+
+    @Column(name = "Amount")
     public int amount;
+
+    @Column(name = "Vector")
     public MoneyVector vector;
+
+    @Column(name = "ReasonId")
     public PaymentReason reasonId;
-    public int tradingId;
+
+    //public int tradingId;
     //public virtual Trading Trading;
-    public boolean donat;
+
+    @Column(name = "Donat")
+    public boolean isDonat;
 }

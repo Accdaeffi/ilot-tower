@@ -1,5 +1,6 @@
 package ru.ilot.ilottower.model.entities.user;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -13,10 +14,15 @@ import lombok.Data;
 public class UserSettings {
 
     @Id
-    public int id;
+    @Column(name = "Id")
+    private int id;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "settings")
-    public Player player;
-    public boolean banned = false;
-    public int expMultiply = 1;
+    private Player player;
+
+    @Column(name = "Banned")
+    private boolean banned = false;
+
+    @Column(name = "ExpMultiply")
+    private int expMultiply = 1;
 }
