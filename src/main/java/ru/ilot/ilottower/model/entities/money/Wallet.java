@@ -9,48 +9,47 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import ru.ilot.ilottower.enums.MoneyVector;
-import ru.ilot.ilottower.enums.PaymentReason;
+import ru.ilot.ilottower.model.enums.MoneyVector;
+import ru.ilot.ilottower.model.enums.PaymentReason;
 import ru.ilot.ilottower.model.entities.user.Player;
 
 import java.sql.Timestamp;
-import java.util.Currency;
 
 @Data
 @Entity
-@Table(name = "Wallets")
+@Table(name = "wallet")
 public class Wallet {
 
     @Id
-    @Column(name = "Id")
+    @Column(name = "id")
     public int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CurrencyId", nullable = false)
+    @JoinColumn(name = "currency_id", nullable = false)
     public Currency currency;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "wallet")
-    @JoinColumn(name = "UserId")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     public Player player;
 
-    @Column(name = "CustomerId")
+    @Column(name = "customer_id")
     public int customerId;
 
-    @Column(name = "Date")
+    @Column(name = "date")
     public Timestamp date;
 
-    @Column(name = "Amount")
+    @Column(name = "amount")
     public int amount;
 
-    @Column(name = "Vector")
+    @Column(name = "vector")
     public MoneyVector vector;
 
-    @Column(name = "ReasonId")
+    @Column(name = "reason_id")
     public PaymentReason reasonId;
 
     //public int tradingId;
     //public virtual Trading Trading;
 
-    @Column(name = "Donat")
+    @Column(name = "is_donat")
     public boolean isDonat;
 }

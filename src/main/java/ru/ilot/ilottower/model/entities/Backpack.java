@@ -20,15 +20,15 @@ public class Backpack {
 
     @Id
     @Column(name = "id")
-    public int id;
+    private int id;
 
     @Column(name = "max_count")
-    public int maxCount = 30;
+    private int maxCount = 30;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "backpack")
-    public List<BackpackItem> BackpackItems;
+    private List<BackpackItem> BackpackItems;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "backpack")
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    public Player player;
+    private Player player;
 }

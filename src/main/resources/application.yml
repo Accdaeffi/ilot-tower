@@ -1,5 +1,10 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ilot-tower
-    username: postgres
+    username: root
     password: root
+
+telegram:
+  bot:
+    username: ${BOT_USERNAME}
+    token: ${BOT_TOKEN}

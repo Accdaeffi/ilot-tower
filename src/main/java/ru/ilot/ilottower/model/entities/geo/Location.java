@@ -7,35 +7,35 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-import ru.ilot.ilottower.enums.geo.TypeLocation;
+import ru.ilot.ilottower.model.enums.geo.TypeLocation;
 import ru.ilot.ilottower.model.entities.user.Player;
 
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "Locations")
+@Table(name = "location")
 public class Location {
     @Id
-    @Column(name = "Id")
+    @Column(name = "id")
     public String id;
 
-    @Column(name = "LevelId")
+    @Column(name = "level_id")
     public int levelId;
 
-    @Column(name = "LocationX")
+    @Column(name = "location_x")
     public int locationX;
 
-    @Column(name = "LocationY")
+    @Column(name = "location_y")
     public int locationY;
 
-    @Column(name = "LocationType")
+    @Column(name = "location_type")
     public TypeLocation locationType;
 
-    @Column(name = "MonsterCount")
+    @Column(name = "monster_count")
     public int monsterCount = 10;
 
-    @Column(name = "MaxMonsterCount")
+    @Column(name = "max_monster_count")
     public int maxMonsterCount = 20;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "location")

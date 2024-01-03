@@ -1,4 +1,4 @@
-package ru.ilot.ilottower.enums.geo;
+package ru.ilot.ilottower.model.enums.geo;
 
 public enum BuildingType {
     NONE,

@@ -4,17 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import ru.ilot.ilottower.enums.RareType;
-import ru.ilot.ilottower.enums.SlotType;
-import ru.ilot.ilottower.model.entities.BackpackItem;
-
-import java.util.List;
+import ru.ilot.ilottower.model.enums.RareType;
+import ru.ilot.ilottower.model.enums.SlotType;
 
 @Data
 @Entity

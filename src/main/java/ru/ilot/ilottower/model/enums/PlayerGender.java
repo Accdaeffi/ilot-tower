@@ -1,4 +1,4 @@
-package ru.ilot.ilottower.enums;
+package ru.ilot.ilottower.model.enums;
 
 public enum PlayerGender {
     MALE,
