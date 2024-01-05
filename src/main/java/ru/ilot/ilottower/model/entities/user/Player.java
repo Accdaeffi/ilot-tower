@@ -39,14 +39,14 @@ public class Player {
     @Column(name = "exp_current")
     private int expCurrent = 0;
 
-    @Column(name = "location_level")
-    private int locationLevel = 1;
-
-    @Column(name = "location_x")
-    private int locationX = 0;
-
-    @Column(name = "location_y")
-    private int locationY = 0;
+//    @Column(name = "location_level")
+//    private int locationLevel = 1;
+//
+//    @Column(name = "location_x")
+//    private int locationX = 0;
+//
+//    @Column(name = "location_y")
+//    private int locationY = 0;
 
     @Column(name = "gender")
     @Enumerated(EnumType.ORDINAL)

@@ -1,4 +1,4 @@
-package ru.ilot.ilottower.model.repository;
+package ru.ilot.ilottower.model.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

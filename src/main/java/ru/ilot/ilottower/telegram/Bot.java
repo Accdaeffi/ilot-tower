@@ -15,123 +15,119 @@ import java.util.Optional;
 @Slf4j
 public class Bot extends TelegramLongPollingBot {
 
-	private final MessageParser commandParser;
-	private final PhotoParser photoParser;
-	private final CallbackParser callbackParser;
+    private final MessageParser commandParser;
+    private final PhotoParser photoParser;
+    private final CallbackParser callbackParser;
 
-	private final String BOT_USERNAME;
+    private final String BOT_USERNAME;
 
-	public Bot(String botUserName, String botToken, MessageParser commandParser, PhotoParser photoParser, CallbackParser callbackParser) {
-		super(botToken);
-		this.BOT_USERNAME = botUserName;
-		this.commandParser = commandParser;
-		this.photoParser = photoParser;
-		this.callbackParser = callbackParser;
-	}
+    public Bot(String botUserName, String botToken, MessageParser commandParser, PhotoParser photoParser, CallbackParser callbackParser) {
+        super(botToken);
+        this.BOT_USERNAME = botUserName;
+        this.commandParser = commandParser;
+        this.photoParser = photoParser;
+        this.callbackParser = callbackParser;
+    }
 
-	@Override
-	public void onUpdateReceived(Update update) {
+    @Override
+    public void onUpdateReceived(Update update) {
 
-		if (update.hasMessage()) {
+        if (update.hasMessage()) {
 
-			Message message = update.getMessage();
-			Long chatId = message.getChatId();
-			User author = message.getFrom();
+            Message message = update.getMessage();
+            Long chatId = message.getChatId();
+            User author = message.getFrom();
 
-			log.info("Message!");
+            log.info("Message!");
 
-			if (message.hasPhoto()) {
+            if (message.hasPhoto()) {
 
-				String messageText = message.getCaption();
+                String messageText = message.getCaption();
 
-				/* Parsing command */
-				Optional<AbsCommand> optionalCommandHandler = photoParser.parseMessageWithPhoto(message.getPhoto(), messageText,
-						author);
+                /* Parsing command */
+                Optional<AbsCommand> optionalCommandHandler = photoParser.parseMessageWithPhoto(message.getPhoto(), messageText,
+                        author);
 
-				optionalCommandHandler.ifPresent(handler -> {
-					try {
+                optionalCommandHandler.ifPresent(handler -> {
+                    try {
 
-						/* Executing command */
-						Response<?> result = handler.execute();
+                        /* Executing command */
+                        Response<?> result = handler.execute();
 
-						/* Sending result of command */
-						result.send(this, chatId);
-					} catch (TelegramApiException ex) {
-						log.error("Error sending result of command {} from {}!", messageText, author.getId(), ex);
-					} catch (Exception ex) {
-						log.error("Error during processing command {}!", messageText, ex);
-					}
-				});
+                        /* Sending result of command */
+                        result.send(this, chatId);
+                    } catch (TelegramApiException ex) {
+                        log.error("Error sending result of command {} from {}!", messageText, author.getId(), ex);
+                    } catch (Exception ex) {
+                        log.error("Error during processing command {}!", messageText, ex);
+                    }
+                });
 
-			} else {
-				if (message.hasText()) {
+            } else {
+                if (message.hasText()) {
 
-					String messageText = message.getText();
+                    String messageText = message.getText();
 
-					if (messageText.startsWith("/")) {
-						String authorId = (author.getUserName() == null) ? author.getFirstName() : author.getUserName();
-						log.info("Command {} from {}", messageText, authorId);
+                    String authorId = (author.getUserName() == null) ? author.getFirstName() : author.getUserName();
+                    log.info("Command {} from {}", messageText, authorId);
 
-						/* Parsing command */
-						Optional<AbsCommand> optionalCommandHandler = commandParser.parseMessage(messageText, author, message.getChatId());
+                    /* Parsing command */
+                    Optional<AbsCommand> optionalCommandHandler = commandParser.parseMessage(messageText, author, message.getChatId());
 
-						optionalCommandHandler.ifPresent(handler -> {
-							try {
+                    optionalCommandHandler.ifPresent(handler -> {
+                        try {
 
-								/* Executing command */
-								Response<?> result = handler.execute();
+                            /* Executing command */
+                            Response<?> result = handler.execute();
 
-								/* Sending result of command */
-								result.send(this, chatId);
-							} catch (TelegramApiException ex) {
-								log.error("Error sending result of command {} from {}!", messageText, author.getId(),
-										ex);
-							} catch (Exception ex) {
-								log.error("Error during processing command {}!", messageText, ex);
-							}
-						});
-					}
-				}
-			}
-		} else {
-			if (update.hasCallbackQuery())
+                            /* Sending result of command */
+                            result.send(this, chatId);
+                        } catch (TelegramApiException ex) {
+                            log.error("Error sending result of command {} from {}!", messageText, author.getId(),
+                                    ex);
+                        } catch (Exception ex) {
+                            log.error("Error during processing command {}!", messageText, ex);
+                        }
+                    });
+                }
+            }
+        } else {
+            if (update.hasCallbackQuery()) {
+                CallbackQuery callback = update.getCallbackQuery();
 
-			{
-				CallbackQuery callback = update.getCallbackQuery();
+                String messageText = callback.getData();
+                long chatId = callback.getMessage().getChatId();
+                int messageId = callback.getMessage().getMessageId();
+                User author = callback.getFrom();
 
-				String messageText = callback.getData();
-				long chatId = callback.getMessage().getChatId();
-				int messageId = callback.getMessage().getMessageId();
-				User author = callback.getFrom();
+                String authorId = (author.getUserName() == null) ? author.getFirstName() : author.getUserName();
+                log.info("Callback \"{}\" from {}", messageText, authorId);
 
-				String authorId = (author.getUserName() == null) ? author.getFirstName() : author.getUserName();
-				log.info("Callback \"{}\" from {}", messageText, authorId);
+                /* Parsing callback */
+                Optional<AbsCommand> optionalCallbackHandler = callbackParser.parseCallback(messageText, messageId, author);
 
-				/* Parsing callback */
-				Optional<AbsCommand> optionalCallbackHandler = callbackParser.parseCallback(messageText, messageId, author);
+                optionalCallbackHandler.ifPresent(handler -> {
+                    try {
 
-				optionalCallbackHandler.ifPresent(handler -> {
-					try {
+                        /* Executing command */
+                        Response<?> result = handler.execute();
 
-						/* Executing command */
-						Response<?> result = handler.execute();
+                        /* Sending result of command */
+                        result.send(this, chatId);
+                    } catch (TelegramApiException ex) {
+                        log.error("Error sending result of callback {} from {}!", messageText, author.getId(), ex);
+                    } catch (Exception ex) {
+                        log.error("Error during processing callback {}!", messageText, ex);
+                    }
+                });
+            }
+        }
+    }
 
-						/* Sending result of command */
-						result.send(this, chatId);
-					} catch (TelegramApiException ex) {
-						log.error("Error sending result of callback {} from {}!", messageText, author.getId(), ex);
-					} catch (Exception ex) {
-						log.error("Error during processing callback {}!", messageText, ex);
-					}
-				});
-			}
-		}
-	}
-
-	@Override
-	public String getBotUsername() {
-		return BOT_USERNAME;
-	}
+    @Override
+    public String getBotUsername() {
+        return BOT_USERNAME;
+    }
 
 
 }

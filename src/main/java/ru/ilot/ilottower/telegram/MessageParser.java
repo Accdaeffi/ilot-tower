@@ -9,7 +9,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
 import ru.ilot.ilottower.telegram.commands.AbsCommand;
-import ru.ilot.ilottower.telegram.commands.SendProfile;
+import ru.ilot.ilottower.telegram.commands.MoveCommand;
+import ru.ilot.ilottower.telegram.commands.SendProfileCommand;
 
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class MessageParser implements ApplicationContextAware {
     public Optional<AbsCommand> parseMessage(@NonNull String messageText, @NonNull User messageAuthor, @NonNull Long chatId) {
 
         try {
-            String arr[] = messageText.split(" ", 2);
+            String[] arr = messageText.split("_", 2);
             String command = arr[0];
             if (command.contains("@")) {
                 command = arr[0].substring(0, arr[0].indexOf("@"));
@@ -39,8 +40,19 @@ public class MessageParser implements ApplicationContextAware {
             switch (command) {
                 case "\uD83D\uDCA1 Герой":
                 case "/me" :{
-                    commandHandler = appContext.getBean(SendProfile.class, messageAuthor.getId());
+                    log.info("/me command from {}", messageAuthor.getId());
+                    commandHandler = appContext.getBean(SendProfileCommand.class, messageAuthor.getId());
                 }
+                break;
+                case "⬆️ Север":
+                case "⬅️ Запад":
+                case "➡️ Восток":
+                case "⬇️ Юг":
+                {
+                    log.info("movement command from {}", messageAuthor.getId());
+                    commandHandler = appContext.getBean(MoveCommand.class, messageAuthor.getId(), command);
+                }
+                break;
             }
 //            switch (command) {
 //                case "/start" -> {
