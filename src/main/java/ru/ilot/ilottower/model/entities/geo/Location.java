@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-import ru.ilot.ilottower.model.enums.geo.TypeLocation;
+import ru.ilot.ilottower.model.enums.geo.LocationType;
 import ru.ilot.ilottower.model.entities.user.Player;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class Location {
     public int locationY;
 
     @Column(name = "location_type")
-    public TypeLocation locationType;
+    public LocationType locationType;
 
     @Column(name = "monster_count")
     public int monsterCount = 10;

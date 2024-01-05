@@ -1,6 +1,6 @@
 package ru.ilot.ilottower.model.enums.geo;
 
-public enum TypeLocation {
+public enum LocationType {
     NONE,
     CITY,
     PLAINS,

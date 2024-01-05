@@ -1,5 +1,6 @@
 package ru.ilot.ilottower.telegram.response;
 
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageCaption;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.bots.AbsSender;
@@ -25,6 +26,7 @@ public class EditMessageCaptionResponse extends EditMessageResponse {
         }
 
         outMsg.setCaption(this.getContent());
+        outMsg.setParseMode(ParseMode.HTML);
 
         sender.execute(outMsg);
     }

@@ -1,5 +1,6 @@
 package ru.ilot.ilottower.telegram.response;
 
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -19,6 +20,7 @@ public class StringResponse extends Response<String> {
 		SendMessage outMsg = new SendMessage();
 		outMsg.setChatId(Long.toString(chatId));
 		outMsg.setText(this.getContent());
+		outMsg.setParseMode(ParseMode.HTML);
 		sender.execute(outMsg);
 	}
 }

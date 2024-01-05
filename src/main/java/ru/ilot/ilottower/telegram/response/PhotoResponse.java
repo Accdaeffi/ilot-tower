@@ -1,5 +1,6 @@
 package ru.ilot.ilottower.telegram.response;
 
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
@@ -44,6 +45,8 @@ public class PhotoResponse extends Response<String> {
 		if (replyKeyboard != null) {
 			photo.setReplyMarkup(replyKeyboard);
 		}
+
+		photo.setParseMode(ParseMode.HTML);
 
 		sender.execute(photo);
 	}

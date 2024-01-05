@@ -95,6 +95,7 @@ public class Player {
     @Column(name = "walk_speed")
     private int walkSpeed;
 
+    // TODO save building
     @Column(name = "building_location")
     @Enumerated(EnumType.ORDINAL)
     private BuildingType buildingLocation;

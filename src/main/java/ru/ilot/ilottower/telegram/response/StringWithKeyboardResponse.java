@@ -1,5 +1,6 @@
 package ru.ilot.ilottower.telegram.response;
 
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.meta.bots.AbsSender;
@@ -20,6 +21,7 @@ public class StringWithKeyboardResponse extends StringResponse {
 		outMsg.setChatId(Long.toString(chatId));
 		outMsg.setText(this.getContent());
 		outMsg.setReplyMarkup(keyboard);
+		outMsg.setParseMode(ParseMode.HTML);
 		sender.execute(outMsg);
 	}
 }

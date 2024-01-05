@@ -14,20 +14,20 @@ import ru.ilot.ilottower.model.enums.geo.BuildingType;
 
 @Data
 @Entity
-@Table(name = "Buildings")
+@Table(name = "building")
 public class Building {
     @Id
-    @Column(name = "Id")
+    @Column(name = "id")
     public int id;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     public String name;
 
-    @Column(name = "BuildingType")
+    @Column(name = "building_type")
     @Enumerated(EnumType.ORDINAL)
     public BuildingType buildingType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="LocationId", nullable=false)
+    @JoinColumn(name="location_id", nullable=false)
     public Location location;
 }

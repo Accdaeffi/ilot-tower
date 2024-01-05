@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import ru.ilot.ilottower.telegram.commands.AbsCommand;
 import ru.ilot.ilottower.telegram.commands.MoveCommand;
 import ru.ilot.ilottower.telegram.commands.SendProfileCommand;
+import ru.ilot.ilottower.telegram.commands.ShowLocationCommand;
 
 import java.util.Optional;
 
@@ -39,38 +40,22 @@ public class MessageParser implements ApplicationContextAware {
 
             switch (command) {
                 case "\uD83D\uDCA1 Герой":
-                case "/me" :{
-                    log.info("/me command from {}", messageAuthor.getId());
+                case "/me": {
                     commandHandler = appContext.getBean(SendProfileCommand.class, messageAuthor.getId());
                 }
                 break;
                 case "⬆️ Север":
                 case "⬅️ Запад":
                 case "➡️ Восток":
-                case "⬇️ Юг":
-                {
-                    log.info("movement command from {}", messageAuthor.getId());
+                case "⬇️ Юг": {
                     commandHandler = appContext.getBean(MoveCommand.class, messageAuthor.getId(), command);
                 }
                 break;
+                case "🔍 Осмотреться": {
+                    commandHandler = appContext.getBean(ShowLocationCommand.class, messageAuthor.getId());
+                }
+                break;
             }
-//            switch (command) {
-//                case "/start" -> {
-//                    commandHandler = appContext.getBean(StartCommand.class);
-//                }
-//                case "/register" -> {
-//                    commandHandler = appContext.getBean(RegisterCommand.class, chatId);
-//                }
-//                case "/check" -> {
-//                    commandHandler = appContext.getBean(CheckOtterCommand.class, messageAuthor);
-//                }
-//                case "/get_otter" -> {
-//                    commandHandler = appContext.getBean(GetOtterCommand.class, chatId);
-//                }
-//                default -> {
-//                    commandHandler = null;
-//                }
-//            }
 
             return Optional.ofNullable(commandHandler);
         } catch (Exception ex) {
