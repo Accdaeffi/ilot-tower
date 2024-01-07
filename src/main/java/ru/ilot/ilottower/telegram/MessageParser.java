@@ -13,8 +13,12 @@ import ru.ilot.ilottower.telegram.commands.MoveCommand;
 import ru.ilot.ilottower.telegram.commands.SendProfileCommand;
 import ru.ilot.ilottower.telegram.commands.ShowLocationCommand;
 import ru.ilot.ilottower.telegram.commands.dungeon.CreatePartyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.EnterPartyCommand;
 import ru.ilot.ilottower.telegram.commands.dungeon.HelpPartiesCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.InvitePlayerCommand;
 import ru.ilot.ilottower.telegram.commands.dungeon.LeavePartyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.MakePartyInviteOnlyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.ViewMyPartyCommand;
 import ru.ilot.ilottower.telegram.commands.dungeon.ViewPartyCommand;
 
 import java.util.Optional;
@@ -79,63 +83,26 @@ public class MessageParser implements ApplicationContextAware {
                     commandHandler = appContext.getBean(LeavePartyCommand.class, messageAuthor.getId());
                 }
                 break;
-//
-//                case "/enterParty":
-//                {
-//                    try
-//                    {
-//                        int partyId = Convert.ToInt32(message.Text.Split('_').Last());
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, PartyFunctions.enterParty(playerInfo, partyId, telegramBotClient), ParseMode.Html);
-//                    }
-//                    catch (FormatException ex)
-//                    {
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, "Неверный номер команды!");
-//                    }
-//                    catch (OverflowException ex)
-//                    {
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, "Неверный номер команды!");
-//                    }
-//                }
-//                break;
-//
-//
-//                case "/inviteParty":
-//                {
-//                    try
-//                    {
-//                        int invitedId = Convert.ToInt32(message.Text.Split('_').Last());
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, PartyFunctions.inviteParty(playerInfo, invitedId, telegramBotClient), ParseMode.Html);
-//                    }
-//                    catch (FormatException ex)
-//                    {
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, "Неверный игрок!");
-//                    }
-//                    catch (OverflowException ex)
-//                    {
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, "Слушай, в башню конечно много людей играет, но не настолько много!");
-//                    }
-//                }
-//                break;
-//
-//                case "/inviteOnlyParty":
-//                {
-//                    try
-//                    {
-//                        bool InviteOnly = Convert.ToBoolean(message.Text.Split('_').Last().ToLower());
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, PartyFunctions.setInviteOnlyParty(playerInfo, InviteOnly), ParseMode.Html);
-//                    }
-//                    catch (FormatException ex)
-//                    {
-//                        await telegramBotClient.SendTextMessageAsync(playerInfo.Id, "В качества параметра может быть только true или false!");
-//                    }
-//                }
-//                break;
-//
-//                case "/viewMyParty":
-//                {
-//                    await telegramBotClient.SendTextMessageAsync(playerInfo.Id, PartyFunctions.viewMyParty(playerInfo), ParseMode.Html);
-//                }
-//                break;
+                case "/enterParty":
+                {
+                    commandHandler = appContext.getBean(EnterPartyCommand.class, messageAuthor.getId(), argument);
+                }
+                break;
+                case "/inviteParty":
+                {
+                    commandHandler = appContext.getBean(InvitePlayerCommand.class, messageAuthor.getId(), argument);
+                }
+                break;
+                case "/inviteOnlyParty":
+                {
+                    commandHandler = appContext.getBean(MakePartyInviteOnlyCommand.class, messageAuthor.getId(), argument);
+                }
+                break;
+                case "/viewMyParty":
+                {
+                    commandHandler = appContext.getBean(ViewMyPartyCommand.class, messageAuthor.getId());
+                }
+                break;
 //                case "/enterDungeon":
 //                {
 //                    await PartyFunctions.enterDungeon(playerInfo, telegramBotClient);
