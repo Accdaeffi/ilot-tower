@@ -1,8 +1,11 @@
 package ru.ilot.ilottower.model.entities.dungeon;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,8 +22,9 @@ import java.util.List;
 @Table(name = "dungeon_party")
 public class DungeonParty {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dungeon_id")
@@ -30,10 +34,10 @@ public class DungeonParty {
     @JoinColumn(name = "leader_id")
     private Player leader;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
+    @OneToMany(mappedBy = "party", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<DungeonPartyPlayer> players;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "party")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "party", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<DungeonPartyInvitation> inviteList;
 
     @Column(name = "is_entered")
