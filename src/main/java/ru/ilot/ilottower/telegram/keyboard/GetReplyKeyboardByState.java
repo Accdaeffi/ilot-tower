@@ -12,7 +12,7 @@ import ru.ilot.ilottower.model.enums.geo.BuildingType;
 public class GetReplyKeyboardByState {
 
     private final IdleReplyKeyboardGetter idleReplyKeyboardGetter;
-    private final WalkingReplyKeyboardGetter walkingReplyKeyboardGetter;
+    private final MiniReplyKeyboardGetter miniReplyKeyboardGetter;
 
     // TODO вернуть другие
     public ReplyKeyboard getKeyboard(Player user)
@@ -25,7 +25,7 @@ public class GetReplyKeyboardByState {
                 //res = DeadReplyKeyboard();
                 break;
             case StateOfPlayer.WALK:
-                res = walkingReplyKeyboardGetter.getKeyboard();
+                res = miniReplyKeyboardGetter.getKeyboard();
                 break;
             case StateOfPlayer.DUNGEONS:
             case StateOfPlayer.DUNGEON_PVE:

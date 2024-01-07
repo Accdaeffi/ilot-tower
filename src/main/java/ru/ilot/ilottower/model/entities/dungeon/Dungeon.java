@@ -28,6 +28,15 @@ public class Dungeon extends Building {
     @Column(name = "width")
     private int width;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "dungeon")
-    private List<DungeonCell> rooms;
+    @Column(name = "monster_count")
+    private int monsterCount;
+
+    @Column(name = "chest_count")
+    private int chestCount;
+
+    @Column(name = "boss_count")
+    private int bossCount;
+
+    @Column(name = "reference_level")
+    private int referenceLevel;
 }

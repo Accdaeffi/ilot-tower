@@ -1,4 +1,4 @@
-package ru.ilot.ilottower.logic.command.dungeon;
+package ru.ilot.ilottower.logic.command.dungeon.party;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

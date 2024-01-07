@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.List;
 
 @Service
-public class WalkingReplyKeyboardGetter {
+public class MiniReplyKeyboardGetter {
 
     public ReplyKeyboardMarkup getKeyboard()
     {

@@ -1,4 +1,4 @@
-package ru.ilot.ilottower.telegram.commands.dungeon;
+package ru.ilot.ilottower.telegram.commands.dungeon.party;
 
 import org.springframework.stereotype.Service;
 import ru.ilot.ilottower.telegram.commands.AbsCommand;

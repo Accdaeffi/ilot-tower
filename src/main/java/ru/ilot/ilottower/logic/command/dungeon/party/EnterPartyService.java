@@ -1,8 +1,9 @@
-package ru.ilot.ilottower.logic.command.dungeon;
+package ru.ilot.ilottower.logic.command.dungeon.party;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ilot.ilottower.logic.command.dungeon.DungeonUtil;
 import ru.ilot.ilottower.model.entities.dungeon.Dungeon;
 import ru.ilot.ilottower.model.entities.dungeon.DungeonParty;
 import ru.ilot.ilottower.model.entities.dungeon.DungeonPartyInvitation;

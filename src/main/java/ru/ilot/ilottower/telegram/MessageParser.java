@@ -12,14 +12,15 @@ import ru.ilot.ilottower.telegram.commands.AbsCommand;
 import ru.ilot.ilottower.telegram.commands.MoveCommand;
 import ru.ilot.ilottower.telegram.commands.SendProfileCommand;
 import ru.ilot.ilottower.telegram.commands.ShowLocationCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.CreatePartyCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.EnterPartyCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.HelpPartiesCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.InvitePlayerCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.LeavePartyCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.MakePartyInviteOnlyCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.ViewMyPartyCommand;
-import ru.ilot.ilottower.telegram.commands.dungeon.ViewPartyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.EnterDungeonCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.CreatePartyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.EnterPartyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.HelpPartiesCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.InvitePlayerCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.LeavePartyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.MakePartyInviteOnlyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.ViewMyPartyCommand;
+import ru.ilot.ilottower.telegram.commands.dungeon.party.ViewPartyCommand;
 
 import java.util.Optional;
 
@@ -103,13 +104,12 @@ public class MessageParser implements ApplicationContextAware {
                     commandHandler = appContext.getBean(ViewMyPartyCommand.class, messageAuthor.getId());
                 }
                 break;
-//                case "/enterDungeon":
-//                {
-//                    await PartyFunctions.enterDungeon(playerInfo, telegramBotClient);
-//                }
-//                break;
-//
-//
+                case "/enterDungeon":
+                {
+                    commandHandler = appContext.getBean(EnterDungeonCommand.class, messageAuthor.getId());
+                }
+                break;
+
 //                case "/getMap":
 //                {
 //                    await telegramBotClient.SendTextMessageAsync(playerInfo.Id, DungeonFunctions.getMap(playerInfo), ParseMode.Html);

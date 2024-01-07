@@ -19,7 +19,7 @@ import ru.ilot.ilottower.model.repository.geo.LocationRepository;
 import ru.ilot.ilottower.model.repository.user.PlayerRepository;
 import ru.ilot.ilottower.telegram.exception.DataLogicException;
 import ru.ilot.ilottower.telegram.exception.NoRegisteredUserException;
-import ru.ilot.ilottower.telegram.keyboard.WalkingReplyKeyboardGetter;
+import ru.ilot.ilottower.telegram.keyboard.MiniReplyKeyboardGetter;
 import ru.ilot.ilottower.telegram.response.Response;
 import ru.ilot.ilottower.telegram.response.StringResponse;
 import ru.ilot.ilottower.telegram.response.StringWithKeyboardResponse;
@@ -35,7 +35,7 @@ public class MovementService implements ApplicationContextAware {
 
     private final LocationRepository locationRepository;
 
-    private final WalkingReplyKeyboardGetter walkingReplyKeyboardGetter;
+    private final MiniReplyKeyboardGetter miniReplyKeyboardGetter;
 
     private ApplicationContext applicationContext;
 
@@ -53,7 +53,7 @@ public class MovementService implements ApplicationContextAware {
             default -> throw new IllegalStateException(STR."Unknown movement text: \{commandText}");
         };
 
-        var whenWalkingReplyKeyboard = walkingReplyKeyboardGetter.getKeyboard();
+        var whenWalkingReplyKeyboard = miniReplyKeyboardGetter.getKeyboard();
 
         var walkTimeInMilliSeconds = 10000;
 

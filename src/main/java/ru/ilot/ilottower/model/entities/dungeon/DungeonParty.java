@@ -40,6 +40,9 @@ public class DungeonParty {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "party", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<DungeonPartyInvitation> inviteList;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "party")
+    private DungeonInstance dungeonInstance;
+
     @Column(name = "is_entered")
     private boolean isEntered;
 

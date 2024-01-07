@@ -15,7 +15,7 @@ public class DungeonUtil {
 
     private final MessageSender messageSender;
 
-    void broadcastMessage(DungeonParty dungeonParty, Response<?> message) {
+    public void broadcastMessage(DungeonParty dungeonParty, Response<?> message) {
         for (DungeonPartyPlayer participant : dungeonParty.getPlayers()) {
             Long targetId = participant.getPlayer().getId();
             messageSender.sendMessage(message, targetId);
